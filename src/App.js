@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'; // 确保导入 useState
 import useTaskStore from './store';
 import TaskList from './components/TaskList';
 import AddTaskModal from './components/AddTaskModal';
@@ -6,9 +6,12 @@ import CustomToolbar from './components/CustomToolbar';
 import PomodoroTimer from './components/PomodoroTimer';
 import FlipCountdown from './components/FlipCountdown';
 import AchievementSystem from './components/AchievementSystem';
+import UserSettings from './components/UserSettings'; // 导入新创建的 UserSettings 组件
 import './App.css';
 
 function App() {
+  const [showSettings, setShowSettings] = useState(false); // 控制设置页面显示
+  
   // 使用Zustand状态管理
   const {
     tasks,
@@ -19,10 +22,7 @@ function App() {
     addTask,
     toggleTask,
     deleteTask,
-    setCurrentView,
-    openModal,
     closeModal,
-    toggleDarkMode,
     setThemeColor,
     getTodayTasks,
     getTasksByProject
@@ -124,67 +124,30 @@ function App() {
   return (
     <div className={`app ${darkMode ? 'dark-mode' : 'light-mode'}`} style={{ '--theme-color': customThemeColor }}>
       <div className="app-container">
-        <header className="app-header">
-        <h1>极简效率清单 (ZenTask)</h1>
-        <div className="theme-toggle">
-          <button onClick={toggleDarkMode}>
-            {darkMode ? '🌙 深色模式' : '☀️ 浅色模式'}
-          </button>
+        {/* 左侧主要工作区 */}
+        <div className="main-content">
+          <PomodoroTimer />
+          {renderCurrentView()}
         </div>
-      </header>
-      
-      <main className="app-main">
-        <div className="task-stats">
-          <p>总任务: {tasks.length} | 未完成: {tasks.filter(t => !t.completed).length}</p>
+
+        {/* 右侧侧边栏 */}
+        <div className="sidebar">
+          {/* 设置按钮 */}
+          <button 
+            onClick={() => setShowSettings(!showSettings)}
+            className="settings-toggle-button"
+          >
+            {showSettings ? '返回主页' : '⚙️ 设置'}
+          </button>
+          
+          {/* 根据状态显示设置或成就系统 */}
+          {showSettings ? (
+            <UserSettings /> // 使用新创建的 UserSettings 组件
+          ) : (
+            <AchievementSystem tasks={tasks} />
+          )}
         </div>
-        
-        <div className="view-selector">
-          <button 
-            className={currentView === 'inbox' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('inbox')}
-          >
-            收件箱
-          </button>
-          <button 
-            className={currentView === 'today' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('today')}
-          >
-            今日任务
-          </button>
-          <button 
-            className={currentView === 'projects' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('projects')}
-          >
-            项目列表
-          </button>
-          <button 
-            className={currentView === 'pomodoro' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('pomodoro')}
-          >
-            番茄时钟
-          </button>
-          <button 
-            className={currentView === 'flipcountdown' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('flipcountdown')}
-          >
-            黑屏倒计时
-          </button>
-          <button 
-            className={currentView === 'achievements' ? 'view-button active' : 'view-button'}
-            onClick={() => setCurrentView('achievements')}
-          >
-            成就系统
-          </button>
-        </div>
-        
-        {renderCurrentView()}
-      </main>
-      
-      <footer className="app-footer">
-        <button className="add-task-button" onClick={openModal}>➕ 添加任务</button>
-        <button className="pomodoro-button" onClick={() => setCurrentView('pomodoro')}>⏱️ 番茄时钟</button>
-        <button className="today-button" onClick={() => setCurrentView('today')}>📅 今日任务</button>
-      </footer>
+      </div>
       
       <AddTaskModal 
         isOpen={isModalOpen}
@@ -193,7 +156,6 @@ function App() {
       />
       
       <CustomToolbar onThemeChange={handleThemeChange} currentTheme={customThemeColor} />
-      </div>
     </div>
   );
 }

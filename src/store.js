@@ -76,6 +76,7 @@ const useTaskStore = create((set, get) => ({
   stopTimer: () => set({ isCounting: false }),
   decrementTime: () => set((state) => ({ pomodoro: state.pomodoro > 0 ? state.pomodoro - 1 : 0 })),
   setTimer: (seconds) => set({ pomodoro: seconds }),
+  setPomodoro: (minutes) => set({ pomodoro: minutes * 60 }), // 添加设置番茄钟时长的方法（接受分钟数）
 }));
 
 export default useTaskStore;
