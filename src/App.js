@@ -1,50 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useTaskStore from './store';
 import TaskList from './components/TaskList';
 import AddTaskModal from './components/AddTaskModal';
+import CustomToolbar from './components/CustomToolbar';
 import PomodoroTimer from './components/PomodoroTimer';
 import FlipCountdown from './components/FlipCountdown';
-import CustomToolbar from './components/CustomToolbar';
 import AchievementSystem from './components/AchievementSystem';
 import './App.css';
 
 function App() {
-  const [tasks, setTasks] = useState([
-    { id: 1, title: '示例任务 1', completed: false, priority: 'P1', project: '工作', dueDate: '2023-06-15' },
-    { id: 2, title: '示例任务 2', completed: true, priority: 'P2', project: '个人', dueDate: '2023-06-16' },
-  ]);
-  
-  const [darkMode, setDarkMode] = useState(true);
-  const [customThemeColor, setCustomThemeColor] = useState('#4a90e2');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentView, setCurrentView] = useState('inbox'); // 'inbox', 'today', 'projects', 'pomodoro', 'flipcountdown'
+  // 使用Zustand状态管理
+  const {
+    tasks,
+    darkMode,
+    customThemeColor,
+    isModalOpen,
+    currentView,
+    addTask,
+    toggleTask,
+    deleteTask,
+    setCurrentView,
+    openModal,
+    closeModal,
+    toggleDarkMode,
+    setThemeColor,
+    getTodayTasks,
+    getTasksByProject
+  } = useTaskStore();
 
   const handleToggleComplete = (taskId) => {
-    setTasks(tasks.map(task => 
-      task.id === taskId ? {...task, completed: !task.completed} : task
-    ));
+    toggleTask(taskId);
   };
 
   const handleDeleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
+    deleteTask(taskId);
   };
 
   const handleAddTask = (newTask) => {
-    const task = {
-      ...newTask,
-      id: Date.now(), // 简单的ID生成方式
-      completed: false
-    };
-    setTasks([...tasks, task]);
+    addTask(newTask);
   };
 
   const handleThemeChange = (color) => {
-    setCustomThemeColor(color);
-  };
-
-  // 获取今日任务
-  const getTodayTasks = () => {
-    const today = new Date().toISOString().split('T')[0];
-    return tasks.filter(task => task.dueDate === today);
+    setThemeColor(color);
   };
 
   // 渲染当前视图
@@ -74,14 +71,8 @@ function App() {
           </>
         );
       case 'projects':
-        // 简化处理，按项目分组任务
-        const projects = {};
-        tasks.forEach(task => {
-          if (!projects[task.project]) {
-            projects[task.project] = [];
-          }
-          projects[task.project].push(task);
-        });
+        // 使用Zustand的getTasksByProject方法
+        const projects = getTasksByProject();
         
         return (
           <>
@@ -132,10 +123,11 @@ function App() {
 
   return (
     <div className={`app ${darkMode ? 'dark-mode' : 'light-mode'}`} style={{ '--theme-color': customThemeColor }}>
-      <header className="app-header">
+      <div className="app-container">
+        <header className="app-header">
         <h1>极简效率清单 (ZenTask)</h1>
         <div className="theme-toggle">
-          <button onClick={() => setDarkMode(!darkMode)}>
+          <button onClick={toggleDarkMode}>
             {darkMode ? '🌙 深色模式' : '☀️ 浅色模式'}
           </button>
         </div>
@@ -189,18 +181,19 @@ function App() {
       </main>
       
       <footer className="app-footer">
-        <button className="add-task-button" onClick={() => setIsModalOpen(true)}>➕ 添加任务</button>
+        <button className="add-task-button" onClick={openModal}>➕ 添加任务</button>
         <button className="pomodoro-button" onClick={() => setCurrentView('pomodoro')}>⏱️ 番茄时钟</button>
         <button className="today-button" onClick={() => setCurrentView('today')}>📅 今日任务</button>
       </footer>
       
       <AddTaskModal 
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
         onAddTask={handleAddTask}
       />
       
       <CustomToolbar onThemeChange={handleThemeChange} currentTheme={customThemeColor} />
+      </div>
     </div>
   );
 }

@@ -1,20 +1,36 @@
 /* 全局样式 */
 .app {
-  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text-main);
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* 深色模式 */
-.dark-mode {
-  background-color: #1a1a1a;
-  color: #ffffff;
+.app-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 计划左右分栏布局 */
+  gap: 30px;
 }
 
-/* 浅色模式 */
-.light-mode {
-  background-color: #ffffff;
-  color: #333333;
+/* 确保所有按钮和卡片都继承主题 */
+button {
+  cursor: pointer;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #e65c5c;
 }
 
 /* 应用头部 */

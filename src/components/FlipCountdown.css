@@ -1,107 +1,96 @@
 .flip-countdown {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 5px;
   padding: 20px;
-  background-color: #000;
-  border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  color: white;
   font-family: 'Courier New', monospace;
 }
 
-.timer-display {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.flip-card {
+  position: relative;
+  width: 60px;
+  height: 80px;
+  perspective: 400px;
 }
 
-.time-unit {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.time-value {
-  font-size: 4rem;
-  font-weight: bold;
-  background-color: #333;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  min-width: 80px;
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-.time-label {
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-.separator {
+.flip-card-top,
+.flip-card-bottom,
+.flip-card-back-top,
+.flip-card-back-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  padding: 10px 0;
   font-size: 3rem;
   font-weight: bold;
-  margin: 0 10px;
+  text-align: center;
+  color: white;
+  background-color: #333;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
 }
 
-.timer-controls {
-  display: flex;
-  gap: 20px;
+.flip-card-top,
+.flip-card-back-top {
+  top: 0;
+  border-bottom: 1px solid #555;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  transform-origin: bottom center;
 }
 
-.control-button {
-  padding: 12px 24px;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
+.flip-card-bottom,
+.flip-card-back-bottom {
+  bottom: 0;
+  border-top: 1px solid #555;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  transform-origin: top center;
+}
+
+.flip-card-back-top {
+  transform: rotateX(180deg);
+}
+
+.flip-card-back-bottom {
+  transform: rotateX(180deg);
+}
+
+.flip-card.flipping .flip-card-top {
+  transform: rotateX(-90deg);
+}
+
+.flip-card.flipping .flip-card-bottom {
+  transform: rotateX(90deg);
+}
+
+.flip-separator {
+  font-size: 3rem;
   font-weight: bold;
-}
-
-.start-button {
-  background-color: #4CAF50;
   color: white;
-}
-
-.start-button:hover {
-  background-color: #45a049;
-}
-
-.pause-button {
-  background-color: #f44336;
-  color: white;
-}
-
-.pause-button:hover {
-  background-color: #da190b;
-}
-
-.reset-button {
-  background-color: var(--theme-color, #2196F3);
-  color: white;
-}
-
-.reset-button:hover {
-  background-color: color-mix(in srgb, var(--theme-color, #2196F3) 80%, black);
+  margin: 0 5px;
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .time-value {
-    font-size: 3rem;
-    padding: 10px 15px;
-    min-width: 60px;
+  .flip-card {
+    width: 40px;
+    height: 60px;
   }
   
-  .separator {
+  .flip-card-top,
+  .flip-card-bottom,
+  .flip-card-back-top,
+  .flip-card-back-bottom {
     font-size: 2rem;
+    padding: 5px 0;
   }
   
-  .control-button {
-    padding: 10px 20px;
-    font-size: 1rem;
+  .flip-separator {
+    font-size: 2rem;
   }
 }
