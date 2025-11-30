@@ -1,0 +1,244 @@
+/* 全局样式 */
+.app {
+  min-height: 100vh;
+  padding: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* 深色模式 */
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* 浅色模式 */
+.light-mode {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* 应用头部 */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.theme-toggle button {
+  background: none;
+  border: 1px solid #444;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dark-mode .theme-toggle button {
+  background-color: #333;
+  color: white;
+  border-color: #555;
+}
+
+.light-mode .theme-toggle button {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #ccc;
+}
+
+/* 主要内容区域 */
+.app-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.task-stats {
+  margin-bottom: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.view-selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.view-button {
+  padding: 8px 16px;
+  border: 1px solid #444;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.dark-mode .view-button {
+  background-color: #2d2d2d;
+  color: white;
+  border-color: #555;
+}
+
+.light-mode .view-button {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #ccc;
+}
+
+.view-button.active {
+  background-color: var(--theme-color, #4a90e2);
+  color: white;
+  border-color: #357abd;
+}
+
+.dark-mode .view-button.active {
+  background-color: var(--theme-color, #4a90e2);
+  border-color: #357abd;
+}
+
+.light-mode .view-button.active {
+  background-color: var(--theme-color, #4a90e2);
+  border-color: #357abd;
+}
+
+.project-section {
+  margin-bottom: 30px;
+}
+
+.project-section h3 {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #444;
+}
+
+.dark-mode .project-section h3 {
+  border-color: #555;
+}
+
+.light-mode .project-section h3 {
+  border-color: #ccc;
+}
+
+/* 任务卡片 */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dark-mode .task-item {
+  background-color: #2d2d2d;
+}
+
+.light-mode .task-item {
+  background-color: #f8f8f8;
+}
+
+.task-content {
+  flex-grow: 1;
+}
+
+.task-title {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.task-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.task-actions button:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.dark-mode .task-actions button:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+/* 底部导航 */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  background-color: rgba(26, 26, 26, 0.9);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid #444;
+}
+
+.light-mode .app-footer {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid #ddd;
+}
+
+.add-task-button, .pomodoro-button, .today-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.light-mode .add-task-button, 
+.light-mode .pomodoro-button, 
+.light-mode .today-button {
+  color: #333;
+}
+
+.add-task-button:hover, 
+.pomodoro-button:hover, 
+.today-button:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.light-mode .add-task-button:hover, 
+.light-mode .pomodoro-button:hover, 
+.light-mode .today-button:hover {
+  background-color: rgba(0,0,0,0.1);
+}

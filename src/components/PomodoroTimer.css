@@ -1,0 +1,100 @@
+.pomodoro-timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.timer-display {
+  width: 100%;
+  border: 3px solid #ff4d4d;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.mode-indicator {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff4d4d;
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.time {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.session-count {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.timer-button {
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  background-color: var(--theme-color, #4caf50);
+  color: white;
+  font-weight: 500;
+}
+
+.timer-button:hover {
+  background-color: color-mix(in srgb, var(--theme-color, #4caf50) 80%, black);
+}
+
+.mode-switcher {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mode-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.dark-mode .mode-button {
+  background-color: #3c3c3c;
+  color: #f0f0f0;
+}
+
+.mode-button.active {
+  background-color: #42a5f5;
+  color: white;
+}
+
+.mode-button:hover:not(.active) {
+  background-color: #bdbdbd;
+}
+
+.dark-mode .mode-button:hover:not(.active) {
+  background-color: #4d4d4d;
+}
